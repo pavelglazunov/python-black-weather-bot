@@ -2,15 +2,15 @@ from typing import Callable, Dict, Any, Awaitable
 
 from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject
-from sqlalchemy.ext.asyncio import async_sessionmaker
 
-from src.repo import DB
+from config.config import Config
+from src.api import AccuWeatherApi
 
 
-class DbSessionMiddleware(BaseMiddleware):
-    def __init__(self, session_pool: async_sessionmaker):
+class APIMiddleware(BaseMiddleware):
+    def __init__(self, config: Config):
         super().__init__()
-        self.session_pool = session_pool
+        self.api = AccuWeatherApi(config.api.openweather.key)
 
     async def __call__(
             self,
@@ -19,7 +19,6 @@ class DbSessionMiddleware(BaseMiddleware):
             event: TelegramObject,
             data: Dict[str, Any],
     ) -> Any:
-        async with self.session_pool() as session:
-            data['db'] = DB(session)
+        data["api"] = self.api
 
-            return await handler(event, data)
+        return await handler(event, data)

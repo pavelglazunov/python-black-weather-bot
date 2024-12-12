@@ -19,14 +19,25 @@ class Bot:
 
 
 @dataclass
-class Db:
-    url: str
+class Limits:
+    max_cities: int
+
+
+@dataclass
+class API:
+    key: str
+
+
+@dataclass
+class ApiManager:
+    openweather: API
 
 
 @dataclass
 class Config:
     bot: Bot
-    db: Db
+    limits: Limits
+    api: ApiManager
 
 
 def load_config() -> Config:
@@ -35,10 +46,12 @@ def load_config() -> Config:
         bot=Bot(
             token=getenv("TOKEN"),
         ),
-        db=Db(
-            url=getenv("DB_URL"),
+        limits=Limits(
+            max_cities=int(getenv("LIMIT_CITY_COUNT")),
+        ),
+        api=ApiManager(
+            openweather=API(
+                key=getenv("API_OPENWEATHER_KEY"),
+            ),
         ),
     )
-
-
-config: Config = load_config()
