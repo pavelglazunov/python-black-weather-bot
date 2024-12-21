@@ -43,7 +43,7 @@ async def input_days_and_process(
             weather_data = await api.get_weather(city, days)
             content += f"{city}:\n"
             for day in weather_data.days:
-                content += (f"{day.date.strftime('%d-%m-%Y')}: \n"
+                content += (f"{day.date}: \n"
                             f"- Температура: {day.temperature}\n"
                             f"- Осадки: {day.rain_probability}\n"
                             f"- Скорость ветра: {day.winter_speed}\n"
