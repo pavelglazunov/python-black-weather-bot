@@ -5,5 +5,6 @@ class StartCitiesInput(StatesGroup):
     city1 = State()
     city2 = State()
 
+
 class InputCityState(StatesGroup):
     city = State()
