@@ -6,7 +6,7 @@
 ### Копирование
 ```shell
 mkdir "weather_bot"
-git clone https://github.com/pavelglazunov/WeatherAppWeek15.git weather_bot
+git clone https://github.com/pavelglazunov/python-black-weather-bot.git weather_bot
 cd weather_bot
 ```
 
